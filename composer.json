@@ -1,0 +1,22 @@
+{
+	"name": "lav45/yii2-ajax-create",
+	"description": "This widget is designed to quickly create missing related entities when filling out the form.",
+	"keywords": ["yii2", "extension", "widget", "ajax"],
+	"homepage": "https://github.com/lav45/yii2-ajax-create",
+	"type": "yii2-extension",
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Alexey Loban",
+			"email": "lav451@gmail.com"
+		}
+	],
+	"require": {
+		"yiisoft/yii2": "~2.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"lav45\\widget\\": ""
+		}
+	}
+}
