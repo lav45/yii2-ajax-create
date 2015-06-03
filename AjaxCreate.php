@@ -77,6 +77,8 @@ class AjaxCreate extends Widget
                 var modalBody = Modal.find('.modal-body');
                 var reload_container_id;
 
+                $.fn.modal.Constructor.prototype.enforceFocus = function(){};
+
                 $(document).on('click', '[data-href]', function() {
                     $.ajax({
                         url: $(this).data('href'),
