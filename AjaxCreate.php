@@ -80,19 +80,23 @@ class AjaxCreate extends Widget
                 $.fn.modal.Constructor.prototype.enforceFocus = function(){};
 
                 $(document).on('click', '[data-href]', function() {
+                    reload_container_id = $(this).closest('.pjax-box').attr('id');
+
                     $.ajax({
                         url: $(this).data('href'),
                         success: function(content) {
-                            modalBody.html(content);
-                            Modal.modal('show');
+                            if (content.length) {
+                                modalBody.html(content);
+                                Modal.modal('show');
+                            } else {
+                                $.pjax.reload('#'+reload_container_id);
+                            }
                         },
                         error: function(message) {
                             modalBody.html(message.responseText);
                             Modal.modal('show');
                         }
                     });
-
-                    reload_container_id = $(this).closest('.pjax-box').attr('id');
                 });
 
                 Modal.on('beforeSubmit', 'form', function() {
@@ -117,7 +121,7 @@ class AjaxCreate extends Widget
                 });
             })(jQuery);
 JS
-);
+        );
     }
 
     public function getModal()
@@ -132,7 +136,7 @@ JS
             $out = ob_get_clean() . $out;
             $view = $this->getView();
 
-            $view->on($view::EVENT_END_BODY, function() use ($out) {
+            $view->on($view::EVENT_END_BODY, function () use ($out) {
                 echo $out;
             });
         }
