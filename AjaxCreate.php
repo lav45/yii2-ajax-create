@@ -79,22 +79,24 @@ class AjaxCreate extends Widget
 
                 $.fn.modal.Constructor.prototype.enforceFocus = function(){};
 
+                function renderModal(content, action){
+                    if (content.length) {
+                        modalBody.html(content);
+                        Modal.modal(action);
+                    }
+                    return content.length !== 0;
+                }
+
                 $(document).on('click', '[data-href]', function() {
                     reload_container_id = $(this).closest('.pjax-box').attr('id');
 
                     $.ajax({
                         url: $(this).data('href'),
                         success: function(content) {
-                            if (content.length) {
-                                modalBody.html(content);
-                                Modal.modal('show');
-                            } else {
-                                $.pjax.reload('#'+reload_container_id);
-                            }
+                            renderModal(content, 'show') && $.pjax.reload('#'+reload_container_id);
                         },
                         error: function(message) {
-                            modalBody.html(message.responseText);
-                            Modal.modal('show');
+                            renderModal(message.responseText, 'show')
                         }
                     });
                 });
@@ -113,8 +115,7 @@ class AjaxCreate extends Widget
                             $.pjax.reload('#'+reload_container_id);
                         },
                         error: function(message) {
-                            modalBody.html(message.responseText);
-                            Modal.modal('show');
+                            renderModal(message.responseText, 'show');
                         }
                     });
                     return false;
