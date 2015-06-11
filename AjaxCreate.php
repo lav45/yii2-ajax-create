@@ -93,7 +93,7 @@ class AjaxCreate extends Widget
                     $.ajax({
                         url: $(this).data('href'),
                         success: function(content) {
-                            renderModal(content, 'show') && $.pjax.reload('#'+reload_container_id);
+                            renderModal(content, 'show') || $.pjax.reload('#'+reload_container_id);
                         },
                         error: function(message) {
                             renderModal(message.responseText, 'show')
