@@ -9,6 +9,10 @@ namespace lav45\widget;
 
 use yii\web\AssetBundle;
 
+/**
+ * Class AjaxCreateAsset
+ * @package lav45\widget
+ */
 class AjaxCreateAsset extends AssetBundle
 {
     public $sourcePath = '@vendor/lav45/yii2-ajax-create/resource';
@@ -20,5 +24,6 @@ class AjaxCreateAsset extends AssetBundle
     public $depends = [
         'yii\widgets\PjaxAsset',
         'yii\bootstrap\BootstrapPluginAsset',
+        'lav45\widget\AjaxFormAsset',
     ];
 }

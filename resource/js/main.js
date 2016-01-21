@@ -54,14 +54,7 @@
     });
 
     function beforeSubmit() {
-        var form = $(this),
-            data = form.data('yiiActiveForm');
-
-        $.ajax({
-            url: form.attr('action'),
-            type: form.attr('method'),
-            data: form.serialize(),
-            dataType: data.settings.ajaxDataType,
+        $(this).ajaxSubmit({
             success: function() {
                 Modal.modal('hide');
                 $.pjax.reload('#'+reload_container_id);
