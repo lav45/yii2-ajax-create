@@ -19,7 +19,8 @@
         Modal = $(selector);
         modalBody = Modal.find('.modal-body');
 
-        Modal.on('beforeSubmit', 'form', beforeSubmit);
+        Modal.on('beforeSubmit', 'form', eventSubmit);
+        $(document).on('click', '[data-href]', eventClick);
     };
 
     function renderModal(content, action){
@@ -39,8 +40,8 @@
         return container.attr('id');
     }
 
-    $(document).on('click', '[data-href]', function() {
-        reload_container_id = getContainer(this);
+    function eventClick(e) {
+        reload_container_id = getContainer(e.target);
 
         $.ajax({
             url: $(this).data('href'),
@@ -51,9 +52,9 @@
                 renderModal(message.responseText, 'show')
             }
         });
-    });
+    }
 
-    function beforeSubmit() {
+    function eventSubmit() {
         $(this).ajaxSubmit({
             success: function() {
                 Modal.modal('hide');
