@@ -55,13 +55,18 @@
     }
 
     function eventSubmit() {
-        $(this).ajaxSubmit({
-            success: function() {
-                Modal.modal('hide');
-                $.pjax.reload('#'+reload_container_id);
+        var form = $(this);
+        form.ajaxSubmit({
+            success: function(errors) {
+                if (errors.length == 0) {
+                    Modal.modal('hide');
+                    $.pjax.reload('#'+reload_container_id);
+                } else {
+                    form.yiiActiveForm('updateMessages', errors, true)
+                }
             },
-            error: function(message) {
-                renderModal(message.responseText, 'show');
+            error: function(jqXHR) {
+                renderModal(jqXHR.responseText, 'show');
             }
         });
         return false;
