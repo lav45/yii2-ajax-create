@@ -37,13 +37,14 @@ class AjaxCreate extends Widget
      * @var array
      */
     public $optionsPjax = [
-        'options' => []
+        'linkSelector' => false,
+        'formSelector' => false,
     ];
     /**
      * @var array
      */
     public $optionsModal = [
-        'closeButton' => false
+        'header' => '',
     ];
     /**
      * @var Modal

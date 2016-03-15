@@ -1,0 +1,11 @@
+.modal-header .close {
+    margin-top: -10px;
+}
+.modal-body h1,
+.modal-body h2,
+.modal-body h3,
+.modal-body h4,
+.modal-body h5
+{
+    margin-top: 0;
+}
