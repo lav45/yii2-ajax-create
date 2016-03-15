@@ -19,6 +19,7 @@
         Modal = $(selector);
         modalBody = Modal.find('.modal-body');
 
+        Modal.draggable({handle: ".modal-header"});
         Modal.on('beforeSubmit', 'form', eventSubmit);
         $(document).on('click', '[data-href]', eventClick);
     };

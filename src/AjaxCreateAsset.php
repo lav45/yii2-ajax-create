@@ -21,7 +21,12 @@ class AjaxCreateAsset extends AssetBundle
         'js/main.js'
     ];
 
+    public $css = [
+        'css/modal.css'
+    ];
+
     public $depends = [
+        'yii\jui\JuiAsset',
         'yii\widgets\PjaxAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'lav45\widget\AjaxFormAsset',
