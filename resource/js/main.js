@@ -40,7 +40,12 @@
     }
 
     function eventClick(e) {
-        reload_container_id = getContainer(e.target);
+        var container_id = getContainer(e.target);
+        if (container_id !== undefined) {
+            reload_container_id = container_id;
+        }
+
+        Modal.modal('hide');
 
         $.ajax({
             url: $(this).data('href'),
