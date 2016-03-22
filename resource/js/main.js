@@ -4,7 +4,7 @@
  * @license http://opensource.org/licenses/BSD-3-Clause
  */
 
-(function($){
+(function ($) {
 
     var Modal,
         modalBody,
@@ -13,9 +13,9 @@
     /**
      * Fix focus element in to the modal window
      */
-    $.fn.modal.Constructor.prototype.enforceFocus = function(){};
+    $.fn.modal.Constructor.prototype.enforceFocus = function () {};
 
-    $.ajaxCreate = function(selector) {
+    $.ajaxCreate = function (selector) {
         Modal = $(selector);
         modalBody = Modal.find('.modal-body');
 
@@ -23,7 +23,7 @@
         $(document).on('click', '[data-href]', eventClick);
     };
 
-    function renderModal(content, action){
+    function renderModal(content, action) {
         if (content.length) {
             modalBody.html(content);
             Modal.modal(action);
@@ -31,8 +31,7 @@
         return content.length !== 0;
     }
 
-    function getContainer(e)
-    {
+    function getContainer(e) {
         var container = $(e).closest('.pjax-box');
         if (container === undefined) {
             container = $('.pjax-box');
@@ -45,10 +44,10 @@
 
         $.ajax({
             url: $(this).data('href'),
-            success: function(content) {
-                renderModal(content, 'show') || $.pjax.reload('#'+reload_container_id);
+            success: function (content) {
+                renderModal(content, 'show') || $.pjax.reload('#' + reload_container_id);
             },
-            error: function(message) {
+            error: function (message) {
                 renderModal(message.responseText, 'show')
             }
         });
@@ -57,15 +56,15 @@
     function eventSubmit() {
         var form = $(this);
         form.ajaxSubmit({
-            success: function(errors) {
+            success: function (errors) {
                 if (errors.length == 0) {
                     Modal.modal('hide');
-                    $.pjax.reload('#'+reload_container_id);
+                    $.pjax.reload('#' + reload_container_id);
                 } else {
                     form.yiiActiveForm('updateMessages', errors, true)
                 }
             },
-            error: function(jqXHR) {
+            error: function (jqXHR) {
                 renderModal(jqXHR.responseText, 'show');
             }
         });
