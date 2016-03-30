@@ -66,7 +66,8 @@
                     Modal.modal('hide');
                     $.pjax.reload('#' + reload_container_id);
                 } else {
-                    form.yiiActiveForm('updateMessages', errors, true)
+                    form.yiiActiveForm('updateMessages', errors, true);
+                    form.trigger('hasError');
                 }
             },
             error: function (jqXHR) {
