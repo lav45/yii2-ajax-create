@@ -9,7 +9,9 @@ namespace lav45\widget;
 
 use Yii;
 use yii\base\Widget;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 
@@ -23,8 +25,8 @@ use yii\bootstrap\Modal;
  * echo $form->field($model, 'category_id')->dropDownList([ ... ]);
  *
  * echo Html::button('<span class="glyphicon glyphicon-plus"></span>', [
- *     'class' => 'btn btn-success',
- *     'data-href' => Url::toRoute(['category/create']),
+ *      'data-href' => Url::toRoute(['category/create']),
+ *      'class' => 'btn btn-success',
  * ])
  *
  * AjaxCreate::end();
@@ -34,12 +36,14 @@ use yii\bootstrap\Modal;
 class AjaxCreate extends Widget
 {
     /**
+     * @see Pjax
      * @var array
      */
     public $optionsPjax = [
         'options' => []
     ];
     /**
+     * @see Modal
      * @var array
      */
     public $optionsModal = [
@@ -72,7 +76,17 @@ class AjaxCreate extends Widget
     public function registerScript()
     {
         AjaxCreateAsset::register($this->getView());
-        $this->getView()->registerJs("$.ajaxCreate('#{$this->modal->id}');");
+
+        $pjax['options'] = ArrayHelper::getValue($this->optionsPjax, 'clientOptions', []);
+
+        $modal['container'] = '#' . $this->modal->id;
+
+        $options = Json::htmlEncode([
+            'pjax' => $pjax,
+            'modal' => $modal,
+        ]);
+
+        $this->getView()->registerJs("$.ajaxCreate({$options});");
     }
 
     public function getModal()

@@ -8,15 +8,18 @@
 
     var Modal,
         modalBody,
-        reload_container_id;
+        reload_container_id,
+        settings;
 
     /**
      * Fix focus element in to the modal window
      */
     $.fn.modal.Constructor.prototype.enforceFocus = function () {};
 
-    $.ajaxCreate = function (selector) {
-        Modal = $(selector);
+    $.ajaxCreate = function (options) {
+        settings = $.extend(settings, options);
+
+        Modal = $(settings.modal.container);
         modalBody = Modal.find('.modal-body');
 
         Modal.on('beforeSubmit', 'form', eventSubmit);
@@ -39,6 +42,10 @@
         return container.attr('id');
     }
 
+    function reloadContainer() {
+        $.pjax.reload('#' + reload_container_id, settings.pjax.options);
+    }
+
     function eventClick(e) {
         var container_id = getContainer(e.target);
         if (container_id !== undefined) {
@@ -50,7 +57,7 @@
         $.ajax({
             url: $(this).data('href'),
             success: function (content) {
-                renderModal(content, 'show') || $.pjax.reload('#' + reload_container_id);
+                renderModal(content, 'show') || reloadContainer();
             },
             error: function (message) {
                 renderModal(message.responseText, 'show')
@@ -64,7 +71,7 @@
             success: function (errors) {
                 if (errors.length == 0) {
                     Modal.modal('hide');
-                    $.pjax.reload('#' + reload_container_id);
+                    reloadContainer();
                 } else {
                     form.yiiActiveForm('updateMessages', errors, true);
                     form.trigger('hasError');
