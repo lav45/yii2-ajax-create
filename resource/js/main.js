@@ -26,10 +26,10 @@
         $(document).on('click', '[data-href]', eventClick);
     };
 
-    function renderModal(content, action) {
+    function renderModal(content) {
         if (content.length) {
             modalBody.html(content);
-            Modal.modal(action);
+            Modal.modal('show');
         }
         return content.length !== 0;
     }
@@ -57,10 +57,10 @@
         $.ajax({
             url: $(this).data('href'),
             success: function (content) {
-                renderModal(content, 'show') || reloadContainer();
+                renderModal(content) || reloadContainer();
             },
             error: function (message) {
-                renderModal(message.responseText, 'show')
+                renderModal(message.responseText)
             }
         });
     }
@@ -78,7 +78,7 @@
                 }
             },
             error: function (jqXHR) {
-                renderModal(jqXHR.responseText, 'show');
+                renderModal(jqXHR.responseText);
             }
         });
         return false;

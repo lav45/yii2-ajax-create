@@ -59,6 +59,7 @@ class AjaxCreate extends Widget
      */
     public function init()
     {
+        $this->registerAsset();
         $this->registerScript();
 
         Html::addCssClass($this->optionsPjax['options'], 'pjax-box');
@@ -73,17 +74,20 @@ class AjaxCreate extends Widget
         Pjax::end();
     }
 
-    public function registerScript()
+    protected function registerAsset()
     {
         AjaxCreateAsset::register($this->getView());
+    }
 
-        $pjax['options'] = ArrayHelper::getValue($this->optionsPjax, 'clientOptions', []);
-
-        $modal['container'] = '#' . $this->modal->id;
-
+    public function registerScript()
+    {
         $options = Json::htmlEncode([
-            'pjax' => $pjax,
-            'modal' => $modal,
+            'pjax' => [
+                'options' => ArrayHelper::getValue($this->optionsPjax, 'clientOptions', [])
+            ],
+            'modal' => [
+                'container' => '#' . $this->modal->id
+            ],
         ]);
 
         $this->getView()->registerJs("$.ajaxCreate({$options});");
