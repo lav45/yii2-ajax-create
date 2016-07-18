@@ -20,4 +20,8 @@ class AjaxFormAsset extends AssetBundle
     public $js = [
         'jquery.form.js'
     ];
+
+    public $depends = [
+        'yii\web\JqueryAsset',
+    ];
 }
