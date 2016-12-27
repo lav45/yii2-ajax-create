@@ -63,6 +63,7 @@
                 renderModal(message.responseText)
             }
         });
+        return false;
     }
 
     function eventSubmit() {
