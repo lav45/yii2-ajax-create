@@ -22,10 +22,8 @@ use yii\bootstrap\Modal;
  *
  * AjaxCreate::begin();
  *
- * echo $form->field($model, 'category_id')->dropDownList([ ... ]);
- *
  * echo Html::button('<span class="glyphicon glyphicon-plus"></span>', [
- *      'data-href' => Url::toRoute(['category/create']),
+ *      'data-href' => Url::toRoute(['create']),
  *      'class' => 'btn btn-success',
  * ])
  *
