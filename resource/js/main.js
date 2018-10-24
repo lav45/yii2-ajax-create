@@ -5,16 +5,12 @@
  */
 
 (function ($) {
+    'use strict';
 
-    var Modal,
+    let Modal,
         modalBody,
         reload_container_id,
         settings;
-
-    /**
-     * Fix focus element in to the modal window
-     */
-    $.fn.modal.Constructor.prototype.enforceFocus = function () {};
 
     $.ajaxCreate = function (options) {
         settings = $.extend(settings, options);
@@ -35,7 +31,7 @@
     }
 
     function getContainer(e) {
-        var container = $(e).closest('.pjax-box');
+        let container = $(e).closest('.pjax-box');
         if (container === undefined) {
             container = $('.pjax-box');
         }
@@ -47,7 +43,8 @@
     }
 
     function eventClick(e) {
-        var container_id = getContainer(e.target);
+        e.preventDefault();
+        const container_id = getContainer(e.target);
         if (container_id !== undefined) {
             reload_container_id = container_id;
         }
@@ -66,11 +63,12 @@
         return false;
     }
 
-    function eventSubmit() {
-        var form = $(this);
+    function eventSubmit(e) {
+        e.preventDefault();
+        const form = $(this);
         form.ajaxSubmit({
             success: function (errors) {
-                if (errors.length == 0) {
+                if (errors.length === 0) {
                     Modal.modal('hide');
                     reloadContainer();
                 } else {

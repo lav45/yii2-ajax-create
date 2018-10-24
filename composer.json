@@ -18,8 +18,11 @@
     ],
     "require": {
         "yiisoft/yii2": "2.0.*",
-        "yiisoft/yii2-bootstrap": "2.0.*",
-        "bower-asset/jquery-form": "^3.51"
+        "yiisoft/yii2-bootstrap4": "1.0.x-dev",
+        "bower-asset/jquery-form": "4.*"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -28,7 +31,13 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1.x-dev"
+            "dev-master": "0.2.x-dev"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }
