@@ -16,7 +16,7 @@
 или добавить
 
 ``
-      "lav45/yii2-ajax-create": "0.1.*"
+      "lav45/yii2-ajax-create": "0.2.*"
 ``
 
 в разделе "require" в `composer.json` файл.
