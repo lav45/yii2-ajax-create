@@ -55,7 +55,7 @@ class SiteController extends Controller
     public function actionCreate()
     {
         // ...
-        return $this->renderPartial('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }
