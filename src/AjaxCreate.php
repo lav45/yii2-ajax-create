@@ -93,20 +93,22 @@ class AjaxCreate extends Widget
 
     public function getModal()
     {
-        if (self::$_modal === null) {
-            ob_start();
-            ob_implicit_flush(false);
-
-            $this->optionsModal['class'] = Modal::className();
-            self::$_modal = Yii::createObject($this->optionsModal);
-            $out = self::$_modal->run();
-            $out = ob_get_clean() . $out;
-            $view = $this->getView();
-
-            $view->on($view::EVENT_END_BODY, function () use ($out) {
-                echo $out;
-            });
+        if (null !== self::$_modal) {
+            return self::$_modal;
         }
+        ob_start();
+        ob_implicit_flush(false);
+
+        $this->optionsModal['class'] = Modal::className();
+        self::$_modal = Yii::createObject($this->optionsModal);
+        $out = self::$_modal->run();
+        $out = ob_get_clean() . $out;
+        $view = $this->getView();
+
+        $view->on($view::EVENT_END_BODY, function () use ($out) {
+            echo $out;
+        });
+
         return self::$_modal;
     }
 }

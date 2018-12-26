@@ -15,10 +15,10 @@ use yii\web\AssetBundle;
  */
 class AjaxFormAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/jquery-form';
+    public $sourcePath = '@bower/jquery-form/dist';
 
     public $js = [
-        'jquery.form.js'
+        'jquery.form.min.js'
     ];
 
     public $depends = [
