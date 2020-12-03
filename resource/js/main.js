@@ -38,21 +38,20 @@
     function getContainer(e) {
         let container = $(e).closest('.pjax-box');
         if (container === undefined) {
-            container = $('.pjax-box');
+            container = $('.pjax-box:eq(0)');
         }
         return container.attr('id');
     }
 
     function reloadContainer() {
-        $.pjax.reload('#' + reload_container_id, settings.pjax.options);
+        if (reload_container_id !== undefined) {
+            $.pjax.reload('#' + reload_container_id, settings.pjax.options);
+        }
     }
 
     function eventClick(e) {
         e.preventDefault();
-        const container_id = getContainer(e.target);
-        if (container_id !== undefined) {
-            reload_container_id = container_id;
-        }
+        reload_container_id = getContainer(e.target);
 
         Modal.modal('hide');
 
