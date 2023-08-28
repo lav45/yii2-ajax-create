@@ -67,12 +67,12 @@
         const form = $(this);
         form.ajaxSubmit({
             success: function (errors) {
-                if (errors.length === 0) {
-                    Modal.modal('hide');
-                    reloadContainer();
-                } else {
+                if (errors?.length) {
                     form.yiiActiveForm('updateMessages', errors, true);
                     form.trigger('hasError');
+                } else {
+                    Modal.modal('hide');
+                    reloadContainer();
                 }
             },
             error: function (jqXHR) {
