@@ -23,7 +23,6 @@ class AjaxCreateAsset extends AssetBundle
 
     public $depends = [
         'yii\widgets\PjaxAsset',
-        'yii\bootstrap4\BootstrapPluginAsset',
         'lav45\widget\AjaxFormAsset',
     ];
 }

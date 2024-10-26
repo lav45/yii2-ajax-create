@@ -12,17 +12,21 @@
     "license": "BSD-3-Clause",
     "authors": [
         {
-            "name": "Alexey Loban",
+            "name": "Aleksey Loban",
             "email": "lav451@gmail.com"
         }
     ],
     "require": {
         "yiisoft/yii2": "2.0.*",
-        "yiisoft/yii2-bootstrap4": "2.0.*",
         "bower-asset/jquery-form": "4.*"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-latest"
+    },
+    "suggest": {
+        "yiisoft/yii2-bootstrap": "It is necessary to display the content in a modal window.",
+        "yiisoft/yii2-bootstrap4": "It is necessary to display the content in a modal window.",
+        "yiisoft/yii2-bootstrap5": "It is necessary to display the content in a modal window."
     },
     "autoload": {
         "psr-4": {
@@ -31,7 +35,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.2.x-dev"
+            "dev-master": "1.0.x-dev"
         }
     },
     "repositories": [
@@ -39,5 +43,10 @@
             "type": "composer",
             "url": "https://asset-packagist.org"
         }
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    }
 }

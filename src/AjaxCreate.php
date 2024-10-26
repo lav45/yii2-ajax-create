@@ -9,11 +9,9 @@ namespace lav45\widget;
 
 use Yii;
 use yii\base\Widget;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\Pjax;
-use yii\bootstrap4\Modal;
 
 /**
  * Class AjaxCreate
@@ -28,37 +26,33 @@ use yii\bootstrap4\Modal;
  * ])
  *
  * AjaxCreate::end();
- *
- * @property Modal $modal
  */
 class AjaxCreate extends Widget
 {
-    /**
-     * @see Pjax
-     * @var array
-     */
+    /** @var array */
     public $optionsPjax = [
         'options' => []
     ];
-    /**
-     * @see Modal
-     * @var array
-     */
-    public $optionsModal = [
+    /**@var array */
+    private $optionsModal = [
+        'class' => '\yii\bootstrap5\Modal',
         'closeButton' => false
     ];
-    /**
-     * @var Modal
-     */
-    protected static $_modal;
+
+    protected static $modal;
+
+    public function setOptionsModal(array $options)
+    {
+        $this->optionsModal = array_merge($this->optionsModal, $options);
+    }
 
     /**
      * @inheritdoc
      */
     public function init()
     {
-        $this->registerAsset();
         $this->registerScript();
+        $this->registerAsset();
 
         Html::addCssClass($this->optionsPjax['options'], 'pjax-box');
         Pjax::begin($this->optionsPjax);
@@ -81,10 +75,10 @@ class AjaxCreate extends Widget
     {
         $options = Json::htmlEncode([
             'pjax' => [
-                'options' => ArrayHelper::getValue($this->optionsPjax, 'clientOptions', [])
+                'options' => isset($this->optionsPjax['clientOptions']) ? $this->optionsPjax['clientOptions'] : []
             ],
             'modal' => [
-                'container' => '#' . $this->modal->id
+                'container' => '#' . $this->getModal()->id
             ],
         ]);
 
@@ -93,15 +87,14 @@ class AjaxCreate extends Widget
 
     public function getModal()
     {
-        if (null !== self::$_modal) {
-            return self::$_modal;
+        if (null !== self::$modal) {
+            return self::$modal;
         }
         ob_start();
         ob_implicit_flush(false);
 
-        $this->optionsModal['class'] = Modal::className();
-        self::$_modal = Yii::createObject($this->optionsModal);
-        $out = self::$_modal->run();
+        self::$modal = Yii::createObject($this->optionsModal);
+        $out = self::$modal->run();
         $out = ob_get_clean() . $out;
         $view = $this->getView();
 
@@ -109,6 +102,6 @@ class AjaxCreate extends Widget
             echo $out;
         });
 
-        return self::$_modal;
+        return self::$modal;
     }
 }
